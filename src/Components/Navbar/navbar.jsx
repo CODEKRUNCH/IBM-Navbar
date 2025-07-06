@@ -6,6 +6,7 @@ import {NavOption, DropdownSection,DropdownItem } from './ChildrenComponent/Drop
 import { MegaDropdownItem,MegaDropdownSection } from './ChildrenComponent/DesciptionDropdown.jsx';
 import { Searchicon,IBMicon, Hamburgericon, Closeicon } from './ChildrenComponent/Icons.jsx';
 import MobileMenu from './ChildrenComponent/MobileNavMenu.jsx';
+import Globedrop from './ChildrenComponent/Globedrop.jsx';
 
 
 
@@ -16,7 +17,9 @@ const Navbar = () => {
     const [openIndex, setOpenIndex] = useState(null);
     const [searchbox,setsearchbox]=useState(false)
     const [activeCategory, setActiveCategory] = useState('featured');
-    const [hasScrolled, setHasScrolled] = useState(false); // New state
+    const [hasScrolled, setHasScrolled] = useState(false); 
+    const [userDropdown, setUserDropdown] = useState(false);
+    const [globeDropdown, setGlobeDropdown] = useState(false);
     const [mobile,setMobile]=useState(false)
 
   const toggleMenu = (index) => {
@@ -25,6 +28,15 @@ const Navbar = () => {
 
   const toggleMobile = () => setMobile(prev => !prev);
 
+   const toggleGlobeDropdown = () => {
+        setGlobeDropdown(prev => !prev);
+        setUserDropdown(false);
+    };
+
+      const toggleUserDropdown = () => {
+        setUserDropdown(prev => !prev);
+        setGlobeDropdown(false);
+    };
 
   const handleSearch=()=>{
     setsearchbox((prev)=>!prev)
@@ -68,7 +80,7 @@ const Navbar = () => {
 
   return (
     
-    <nav className="text-black h-fit md:shadow-sm">
+    <nav className="text-black h-fit shadow-sm">
       <div className='flex md:pl-[2rem]'>
      <button onClick={toggleMobile}   className={`md:hidden relative cursor-pointer p-3 ${
     mobile ? 'bg-white z-[60]' : ''
@@ -250,11 +262,14 @@ const Navbar = () => {
       <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" width="25" height="25" viewBox="0 0 32 32"><path d="M17.74,30,16,29l4-7h6a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2H6A2,2,0,0,0,4,8V20a2,2,0,0,0,2,2h9v2H6a4,4,0,0,1-4-4V8A4,4,0,0,1,6,4H26a4,4,0,0,1,4,4V20a4,4,0,0,1-4,4H21.16Z"></path><path d="M8 10H24V12H8zM8 16H18V18H8z"></path></svg>
         </button>
         
-        <button className='cursor-pointer hover:bg-gray-100 px-2 py-2'>
+        <button   onClick={toggleGlobeDropdown} className='cursor-pointer hover:bg-gray-100 px-2 py-2'>
        <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" width="25" height="25" viewBox="0 0 32 32" part="earth-l0-svg"><path d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2ZM28,15H22A24.26,24.26,0,0,0,19.21,4.45,12,12,0,0,1,28,15ZM16,28a5,5,0,0,1-.67,0A21.85,21.85,0,0,1,12,17H20a21.85,21.85,0,0,1-3.3,11A5,5,0,0,1,16,28ZM12,15a21.85,21.85,0,0,1,3.3-11,6,6,0,0,1,1.34,0A21.85,21.85,0,0,1,20,15Zm.76-10.55A24.26,24.26,0,0,0,10,15h-6A12,12,0,0,1,12.79,4.45ZM4.05,17h6a24.26,24.26,0,0,0,2.75,10.55A12,12,0,0,1,4.05,17ZM19.21,27.55A24.26,24.26,0,0,0,22,17h6A12,12,0,0,1,19.21,27.55Z"></path></svg>
         </button>
         
-        <button className='cursor-pointer hover:bg-gray-100 px-2 py-2'>
+        <button    
+             onClick={toggleUserDropdown}
+             className="cursor-pointer hover:bg-gray-100 px-2 py-2 relative"
+             aria-expanded={userDropdown}>
        <svg focusable="false" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="currentColor" aria-hidden="true" width="25" height="25" viewBox="0 0 32 32"><path d="M16 4a5 5 0 11-5 5 5 5 0 015-5m0-2a7 7 0 107 7A7 7 0 0016 2zM26 30H24V25a5 5 0 00-5-5H13a5 5 0 00-5 5v5H6V25a7 7 0 017-7h6a7 7 0 017 7z"></path></svg>
         </button>
         </div>
@@ -275,8 +290,28 @@ const Navbar = () => {
 
         </div>
       </div>
-      </div>
-     </div>
+        {globeDropdown && (
+                    <Globedrop/>
+                )}
+
+      {userDropdown && (
+                      <>
+                      
+                            <div className="fixed inset-0 bg-transparent z-40" onClick={toggleUserDropdown} />
+                            <div className="fixed top-13 right-0 w-64 bg-white shadow-lg rounded-md z-50">
+                              <ul className="py-1">
+                                <li>
+                                  <Link to="#" className="block border-b border-gray-300 px-4 py-2 hover:bg-gray-100">My Ibm</Link>
+                                </li>
+                                <li>
+                                  <Link to="#" className="block px-4 py-2 hover:bg-gray-100">Log in</Link>
+                                </li>
+                              </ul>
+                            </div>
+                          </>
+              )}
+                </div>
+              </div>
 
 {mobile && (
   <>

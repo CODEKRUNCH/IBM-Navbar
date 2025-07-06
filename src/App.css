@@ -1,0 +1,14 @@
+@import "tailwindcss";
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+.Navbutton {
+  font-family: "IBM Plex Serif", system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", serif;
+  font-size: 0.95rem;
+  font-weight: 100;
+}
+.Navbutn {
+  font-family: "IBM Plex Serif", system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular", serif;
+  font-size: 12px;
+  font-weight: 400;
+}
